@@ -1,5 +1,6 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, View, Text } from "react-native";
+import ColorBox from "./ColorBox";
 import SafeAreaViewAndroid from "./SafeAreaViewAndroid/SafeAreaViewAndroid";
 
 export default StylingExercise = () => {
@@ -9,16 +10,10 @@ export default StylingExercise = () => {
         <Text style={styles.title}>
           Here are some boxes of different colours
         </Text>
-        <Text style={[styles.text, styles.darkBlue]}>Dark Blue #1a2b3c</Text>
-        <Text style={[styles.text, { backgroundColor: "#a3d3d3" }]}>
-          Cyan #a3d3d3
-        </Text>
-        <Text style={[styles.text, { backgroundColor: "#f3b3b3" }]}>
-          Salmon #f3b3b3
-        </Text>
-        <Text style={[styles.text, { backgroundColor: "#1e2faa" }]}>
-          Violet #1e2faa
-        </Text>
+        <ColorBox backgroundColor={"#1a2b3c"} colorName={"Dark Blue"} />
+        <ColorBox backgroundColor={"#a3d3d3"} colorName={"Cyan"} />
+        <ColorBox backgroundColor={"#f3b3b3"} colorName={"Salmon"} />
+        <ColorBox backgroundColor={"#1e2faa"} colorName={"Violet"} />
       </View>
     </SafeAreaView>
   );
@@ -29,9 +24,6 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     paddingHorizontal: 20,
     gap: 8,
-  },
-  darkBlue: {
-    backgroundColor: "#1a2b3c",
   },
   text: {
     color: "#f5f5f5",
