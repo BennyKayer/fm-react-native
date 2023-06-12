@@ -1,19 +1,21 @@
 import React from "react";
-import { Text, View, SafeAreaView, StyleSheet } from "react-native";
-import SafeAreaViewAndroid from "./components/SafeAreaViewAndroid/SafeAreaViewAndroid";
+import { Text, View, StyleSheet } from "react-native";
+import SafeArea from "./components/SafeArea";
 import StylingExercise from "./components/StylingExercise";
+import ListsExercise from "./components/ListsExercise";
 
 const App = () => {
   return (
-    <SafeAreaView style={SafeAreaViewAndroid.safeAreaAndroid}>
+    <SafeArea>
       {/* <View style={styles.container}>
         <Text style={styles.text}>Hello React Native</Text>
         <Text style={[styles.text, styles.title]}>
           Just pass an array to style to apply multiple styles
         </Text>
       </View> */}
-      <StylingExercise />
-    </SafeAreaView>
+      {/* <StylingExercise /> */}
+      <ListsExercise />
+    </SafeArea>
   );
 };
 

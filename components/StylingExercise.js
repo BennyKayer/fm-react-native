@@ -1,11 +1,11 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import ColorBox from "./ColorBox";
-import SafeAreaViewAndroid from "./SafeAreaViewAndroid/SafeAreaViewAndroid";
+import SafeArea from "../components/SafeArea";
 
 export default StylingExercise = () => {
   return (
-    <SafeAreaView style={SafeAreaViewAndroid.safeAreaAndroid}>
+    <SafeArea>
       <View style={styles.container}>
         <Text style={styles.title}>
           Here are some boxes of different colours
@@ -15,7 +15,7 @@ export default StylingExercise = () => {
         <ColorBox backgroundColor={"#f3b3b3"} colorName={"Salmon"} />
         <ColorBox backgroundColor={"#1e2faa"} colorName={"Violet"} />
       </View>
-    </SafeAreaView>
+    </SafeArea>
   );
 };
 
