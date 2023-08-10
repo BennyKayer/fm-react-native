@@ -1,24 +1,46 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  RefreshControl,
+} from "react-native";
 import ColorPreview from "../components/ColorPreview";
 
 const Home = ({ navigation }) => {
   const [apiPallets, setApiPallets] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  useEffect(() => {
-    const getPallets = async () => {
-      const response = await fetch(
-        "https://color-palette-api.kadikraman.vercel.app/palettes",
-      );
+  const fetchColorPalettes = useCallback(async () => {
+    const response = await fetch(
+      "https://color-palette-api.kadikraman.vercel.app/palettes",
+    );
+    if (response.ok) {
       const pallets = await response.json();
       setApiPallets(pallets);
-    };
-    getPallets();
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchColorPalettes();
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await fetchColorPalettes();
+    setIsRefreshing(false);
   }, []);
 
   return (
     <View>
       <FlatList
+        // Customized option
+        // refreshControl={
+        //   <RefreshControl refreshing={true} onRefresh={() => {}} />
+        // }
+        refreshing={isRefreshing}
+        onRefresh={handleRefresh}
         data={apiPallets}
         renderItem={({ item }) => (
           <TouchableOpacity
