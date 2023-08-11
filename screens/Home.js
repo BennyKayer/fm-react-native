@@ -8,7 +8,8 @@ import {
 } from "react-native";
 import ColorPreview from "../components/ColorPreview";
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+  const [customPallets, setCustomPallets] = useState([]);
   const [apiPallets, setApiPallets] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -26,6 +27,15 @@ const Home = ({ navigation }) => {
     fetchColorPalettes();
   }, []);
 
+  useEffect(() => {
+    if (route?.params?.newColorPalette) {
+      setCustomPallets([
+        ...customPallets,
+        { ...route?.params?.newColorPalette, id: customPallets.length + 1 },
+      ]);
+    }
+  }, [route]);
+
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     await fetchColorPalettes();
@@ -33,7 +43,7 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <View>
+    <View style={{ padding: 10, backgroundColor: "#fff" }}>
       <FlatList
         // Customized option
         // refreshControl={
@@ -45,12 +55,14 @@ const Home = ({ navigation }) => {
               navigation.navigate("AddNewPalette");
             }}
           >
-            <Text>Launch Modal</Text>
+            <Text style={{ color: "#1a2b3c", fontSize: 20, fontWeight: "600" }}>
+              Add a color scheme
+            </Text>
           </TouchableOpacity>
         }
         refreshing={isRefreshing}
         onRefresh={handleRefresh}
-        data={apiPallets}
+        data={[...customPallets, ...apiPallets]}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
@@ -60,9 +72,9 @@ const Home = ({ navigation }) => {
               })
             }
           >
-            <Text>{item.paletteName}</Text>
+            <Text style={{ fontSize: 20 }}>{item.paletteName}</Text>
             <FlatList
-              style={{ flexDirection: "row" }}
+              style={{ flexDirection: "row", gap: 5 }}
               data={item.colors.slice(0, 5)}
               renderItem={({ item }) => <ColorPreview hexCode={item.hexCode} />}
               keyExtractor={(item, index) => `${item.hexCode}-${index}`}
