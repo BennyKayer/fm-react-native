@@ -39,6 +39,15 @@ const Home = ({ navigation }) => {
         // refreshControl={
         //   <RefreshControl refreshing={true} onRefresh={() => {}} />
         // }
+        ListHeaderComponent={
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("AddNewPalette");
+            }}
+          >
+            <Text>Launch Modal</Text>
+          </TouchableOpacity>
+        }
         refreshing={isRefreshing}
         onRefresh={handleRefresh}
         data={apiPallets}
